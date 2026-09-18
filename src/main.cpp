@@ -1,8 +1,9 @@
 #include <iostream>
+#include "AVL.h"
 
 using namespace std;
 
 int main(){
-	cout << "Hello AVL!\n";
+	AVLTree tree;
 	return 0;
 }

@@ -1,53 +1,76 @@
+// Name: Ryan Xi
+// UFID: 83786754
+
 #include <catch2/catch_test_macros.hpp>
 #include <iostream>
-
-// uncomment and replace the following with your own headers
-// #include "AVL.h"
-
+#include "../src/AVL.h"
 using namespace std;
 
-// the syntax for defining a test is below. It is important for the name to be unique, but you can group multiple tests with [tags]. A test can have [multiple][tags] using that syntax.
-TEST_CASE("Example Test Name - Change me!", "[flag]"){
-	// instantiate any class members that you need to test here
-	int one = 1;
+// 1. Five command executions that print "unsuccessful"
+TEST_CASE("Five unsuccessful command executions", "[unsuccessful]")
+{
+	AVLTree tree;
 
-	// anything that evaluates to false in a REQUIRE block will result in a failing test 
-	REQUIRE(one == 0); // fix me!
+	// 1. Invalid Name (contains numbers)
+	REQUIRE(tree.insert("A11y", "45679999") == false);
 
-	// all REQUIRE blocks must evaluate to true for the whole test to pass
-	REQUIRE(false); // also fix me!
+	// 2. Invalid UFID (too short)
+	REQUIRE(tree.insert("Jeff", "1234") == false);
+
+	// 3. Invalid UFID (contains letters)
+	REQUIRE(tree.insert("Jeff", "1234abcd") == false);
+
+	// 4. Duplicate UFID
+	tree.insert("David", "11111111");
+	REQUIRE(tree.insert("David", "11111111") == false);
+
+	// 5. Search for a non-existent UFID
+	REQUIRE(tree.search("99999999") == false);
 }
 
-TEST_CASE("Test 2", "[flag]"){
-	// you can also use "sections" to share setup code between tests, for example:
-	int one = 1;
+// 2. Test all four rotation cases
+TEST_CASE("Test all four rotation cases", "[rotations]"){
+	AVLTree tree;
 
-	SECTION("num is 2") {
-		int num = one + 1;
-		REQUIRE(num == 2);
-	};
+	// Left-Left Rotation (Insert descending order)
+	tree.insert("C", "33333333");
+	tree.insert("B", "22222222");
+	tree.insert("A", "11111111");
 
-	SECTION("num is 3") {
-		int num = one + 2;
-		REQUIRE(num == 3);
-	};
+	// Right-Right Rotation (Insert ascending order)
+	tree.insert("D", "44444444");
+	tree.insert("E", "55555555");
+	tree.insert("F", "66666666");
 
-	// each section runs the setup code independently to ensure that they don't affect each other
+	// Right-Left Rotation
+	tree.insert("I", "99999999");
+	tree.insert("G", "77777777");
+	tree.insert("H", "88888888");
+
+	// Left-Right Rotation
+	tree.insert("K", "50000000");
+	tree.insert("M", "70000000");
+	tree.insert("L", "60000000");
+
+	REQUIRE(tree.getInorder().size() == 12);
 }
 
-// you must write 5 unique, meaningful tests for credit on the testing portion of this project!
+// 3. Insert 100 nodes, remove 10 random nodes
+TEST_CASE("Insert 100 nodes, remove 10, check inorder", "[stress]"){
+	AVLTree tree;
 
-// the provided test from the template is below.
+	// Insert 100 nodes
+	for(int i = 10000000; i < 10000100; i++){
+		string ufid = to_string(i);
+		tree.insert("Student", ufid);
+	}
 
-TEST_CASE("Example BST Insert", "[flag]"){
-	/*
-		MyAVLTree tree;   // Create a Tree object
-		tree.insert(3);
-		tree.insert(2);
-		tree.insert(1);
-		std::vector<int> actualOutput = tree.inorder();
-		std::vector<int> expectedOutput = {1, 2, 3};
-		REQUIRE(expectedOutput.size() == actualOutput.size());
-		REQUIRE(actualOutput == expectedOutput);
-	*/
+	// Remove 10 nodes
+	for(int i = 10000000; i < 10000010; i++){
+		string ufid = to_string(i);
+		tree.remove(ufid);
+	}
+
+	vector<string> inorderList = tree.getInorder();
+	REQUIRE(inorderList.size() == 90);
 }
