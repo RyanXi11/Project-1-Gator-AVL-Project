@@ -12,6 +12,9 @@ struct Node{
   Node* right;
 
   Node(string name, string ufid) : name(name), ufid(ufid), height(1), left(nullptr), right(nullptr) {}
+
+  int getHeight(Node* node);
+  int getBalanceFactor(Node* node);
 };
 
 class AVLTree{
