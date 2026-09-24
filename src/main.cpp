@@ -4,6 +4,27 @@
 
 using namespace std;
 
+bool isValidName(const string& name){
+	for(char c: name){
+		if(!isalpha(c) && c != ' '){
+			return false;
+		}
+	}
+	return true;
+}
+
+bool isValidUfid(const string& ufid){
+	if(ufid.length() != 8){
+		return false;
+	}
+	for(char c: ufid){
+		if(!isdigit(c)){
+			return false;
+		}
+	}
+	return true;
+}
+
 int main(){
 	AVLTree tree;
 	string line;
@@ -22,7 +43,12 @@ int main(){
 			getline(ss, dummy, '"');
 			getline(ss, name, '"');
 			ss >> ufid;
-			tree.insert(name, ufid);
+
+			if(isValidName(name) && isValidUfid(ufid)){
+				tree.insert(name, ufid);
+			}else{
+				cout << "unsuccessful" << endl;
+			}
 		}else if(command == "remove"){
 			string ufid;
 			ss >> ufid;

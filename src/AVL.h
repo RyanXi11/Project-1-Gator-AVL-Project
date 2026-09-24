@@ -66,4 +66,11 @@ class AVLTree{
 
     // Utility
     int printLevelCount();
+
+    // For testing purposes
+    vector<string> getInorder(){
+      vector<string> result;
+      inorderUfidHelper(root, result);
+      return result;
+    }
 };
