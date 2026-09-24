@@ -48,6 +48,16 @@ Node *AVLTree::removeHelper(Node *node, string ufid, bool &successful){
   return nullptr;
 }
 
+void AVLTree::inorderHelper(Node* node, vector<string>& result){
+  if(node == nullptr){
+    return;
+  }
+
+  inorderHelper(node->left, result);
+  result.push_back(node->name);
+  inorderHelper(node->right, result);
+}
+
 int AVLTree::getHeight(Node* node){
   if(node == nullptr){
     return 0;
@@ -134,14 +144,27 @@ bool AVLTree::searchName(string name){
 
 }
 
-vector<string> AVLTree::getInorder(){
-  return vector<string>();
+void AVLTree::printInorder(){
+  vector<string> result;
+  inorderHelper(root, result);
+
+  for(size_t i = 0; i < result.size(); i++){
+    cout << result[i];
+    if(i != result.size() - 1){
+      cout << ",";
+    }
+  }
+  cout << endl;
 }
 
-vector<string> AVLTree::getPreorder(){
+void AVLTree::printPreorder(){
 
 }
 
-vector<string> AVLTree::getPostorder(){
+void AVLTree::printPostorder(){
+
+}
+
+int printLevelCount(){
 
 }

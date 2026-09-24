@@ -22,6 +22,11 @@ class AVLTree{
     Node* insertHelper(Node* node, string name, string ufid, bool& sucessful);
     Node* removeHelper(Node* node, string ufid, bool& sucessful);
 
+    // Order helpers
+    void inorderHelper(Node* node, vector<string>& result);
+    void preorderHelper(Node* node, vector<string>& result);
+    void postorderHelper(Node* node, vector<string>& result);
+
     // AVL mechanics and balance tracking
     int getHeight(Node *node);
     int getBalanceFactor(Node *node);
@@ -45,10 +50,10 @@ class AVLTree{
     bool searchName(string name);
 
     //Traversal commands
-    vector<string> getInorder();
-    vector<string> getPreorder();
-    vector<string> getPostorder();
+    void printInorder();
+    void printPreorder();
+    void printPostorder();
 
     // Utility
-    int getLevelCount();
+    int printLevelCount();
 };
