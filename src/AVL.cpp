@@ -104,6 +104,16 @@ Node* AVLTree::rotateRightLeft(Node *node){
 
 bool AVLTree::insert(string name, string ufid){
   bool successful = false;
+
+  //Call helper, starting from root
+  root = insertHelper(root, name, ufid, successful);
+
+  if(successful){
+    cout << "successful" << endl;
+  }else{
+    cout << "unsuccessful" << endl;
+  }
+
   return successful;
 }
 
