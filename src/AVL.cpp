@@ -58,6 +58,25 @@ void AVLTree::inorderHelper(Node* node, vector<string>& result){
   inorderHelper(node->right, result);
 }
 
+void AVLTree::preorderHelper(Node *node, vector<string>& result){
+  if(node == nullptr){
+    return;
+  }
+
+  result.push_back(node->name);
+  preorderHelper(node->left, result);
+  preorderHelper(node->right, result);
+}
+void AVLTree::postorderHelper(Node *node, vector<string>&result){
+  if(node == nullptr){
+    return;
+  }
+
+  postorderHelper(node->left, result);
+  postorderHelper(node->right, result);
+  result.push_back(node->name);
+}
+
 int AVLTree::getHeight(Node* node){
   if(node == nullptr){
     return 0;
@@ -158,11 +177,29 @@ void AVLTree::printInorder(){
 }
 
 void AVLTree::printPreorder(){
+  vector<string> result;
+  preorderHelper(root, result);
 
+  for(size_t i = 0; i < result.size(); i++){
+    cout << result[i];
+    if(i != result.size() - 1){
+      cout << ",";
+    }
+  }
+  cout << endl;
 }
 
 void AVLTree::printPostorder(){
+  vector<string> result;
+  postorderHelper(root, result);
 
+  for(size_t i = 0; i < result.size(); i++){
+    cout << result[i];
+    if(i != result.size() - 1){
+      cout << ",";
+    }
+  }
+  cout << endl;
 }
 
 int printLevelCount(){
