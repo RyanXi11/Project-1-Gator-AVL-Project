@@ -27,6 +27,9 @@ class AVLTree{
     void preorderHelper(Node* node, vector<string>& result);
     void postorderHelper(Node* node, vector<string>& result);
 
+    // Search helper
+    Node* searchHelper(Node* node, string targetUfid);
+
     // AVL mechanics and balance tracking
     int getHeight(Node *node);
     int getBalanceFactor(Node *node);
