@@ -27,8 +27,11 @@ class AVLTree{
     void preorderHelper(Node* node, vector<string>& result);
     void postorderHelper(Node* node, vector<string>& result);
 
+    void inorderUfidHelper(Node* node, vector<string>& result);
+
     // Search helper
     Node* searchHelper(Node* node, string targetUfid);
+    void searchNameHelper(Node *node, string targetName, bool &found);
 
     // AVL mechanics and balance tracking
     int getHeight(Node *node);
@@ -39,6 +42,9 @@ class AVLTree{
     Node* rotateRight(Node* node);
     Node* rotateLeftRight(Node* node);
     Node* rotateRightLeft(Node* node);
+
+    // Inorder successor helper
+    Node* getInorderSuccessor(Node* node);
 
   public: 
     AVLTree() : root(nullptr) {}
